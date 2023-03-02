@@ -1,0 +1,19 @@
+﻿<Window x:Class="Tabletop_Organiser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tabletop_Organiser"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Roll Stats" HorizontalAlignment="Center" Margin="641,217,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Label x:Name="ConRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,100,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="DexRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,300,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="StrRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,500,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="IntRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="100,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="WisRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="300,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="ChaRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="500,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+
+    </Grid>
+</Window>

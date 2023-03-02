@@ -1,0 +1,21 @@
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\bin\Debug\net6.0-windows\Tabletop Organiser.exe
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\bin\Debug\net6.0-windows\Tabletop Organiser.deps.json
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\bin\Debug\net6.0-windows\Tabletop Organiser.runtimeconfig.json
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\bin\Debug\net6.0-windows\Tabletop Organiser.dll
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\bin\Debug\net6.0-windows\Tabletop Organiser.pdb
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.csproj.AssemblyReference.cache
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser_MarkupCompile.cache
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser_MarkupCompile.lref
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.g.resources
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.AssemblyInfoInputs.cache
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.AssemblyInfo.cs
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.csproj.CoreCompileInputs.cache
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.dll
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\refint\Tabletop Organiser.dll
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.pdb
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\Tabletop Organiser.genruntimeconfig.cache
+C:\Users\Ivo Reynolds-Moore\Documents\Programming Projects\Tabletop Organiser\obj\Debug\net6.0-windows\ref\Tabletop Organiser.dll
