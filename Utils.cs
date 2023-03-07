@@ -7,6 +7,11 @@ namespace Utils
     {
         static Random rand = new Random();
 
+        static public void SetSeed(int seed)
+        {
+            rand = new Random(seed);
+        }
+
         private static int RollDice(int size)
         {
             return rand.Next(1, size+1);
@@ -103,15 +108,55 @@ namespace Utils
             int score = rolls.Sum() - rolls.Min();
             return score;
         }
+    }
 
-        public static int[] RollStatArray(int[] bonuses)
+    public class AbilityScores
+    {
+        public int strength;
+        public int dexterity;
+        public int constitution;
+        public int intelligence;
+        public int wisdom;
+        public int charisma;
+
+        public static AbilityScores RollScores()
         {
-            int[] scores = new int[6];
-            for (int i = 0; i < 6; i++)
-            {
-                scores[i] = RollStat() + bonuses[i];
-            }
+            int strength = Roll.RollStat();
+            int dexterity = Roll.RollStat();
+            int constitution = Roll.RollStat();
+            int intelligence = Roll.RollStat();
+            int wisdom = Roll.RollStat();
+            int charisma = Roll.RollStat();
+            AbilityScores scores = new AbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma);
             return scores;
+        }
+        public static AbilityScores GenerateScores(AbilityScores bonuses)
+        {
+            AbilityScores scores = RollScores();
+            scores = Add(scores,bonuses);
+            return scores;
+        }
+
+        public AbilityScores(int _strength, int _dexterity, int _constitution, int _intelligence, int _wisdom, int _charisma)
+        {
+            strength = _strength;
+            dexterity = _dexterity;
+            constitution = _constitution;
+            intelligence = _intelligence;
+            wisdom = _wisdom;
+            charisma = _charisma;
+        }
+
+        public static AbilityScores Add(AbilityScores statsA, AbilityScores statsB)
+        {
+            int strength = Math.Clamp(statsA.strength + statsB.strength, 1, 20);
+            int dexterity = Math.Clamp(statsA.dexterity + statsB.dexterity, 1, 20);
+            int constitution = Math.Clamp(statsA.constitution + statsB.constitution, 1, 20);
+            int intelligence = Math.Clamp(statsA.intelligence + statsB.intelligence, 1, 20);
+            int wisdom = Math.Clamp(statsA.wisdom + statsB.wisdom, 1, 20);
+            int charisma = Math.Clamp(statsA.charisma + statsB.charisma, 1, 20);
+            AbilityScores newStats = new AbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma);
+            return newStats;
         }
     }
 }

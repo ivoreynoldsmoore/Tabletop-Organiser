@@ -28,14 +28,14 @@ namespace Tabletop_Organiser
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int[] bonuses = { 2, 0, 1, 0, 0, 0 };
-            int[] abilityScores = Roll.RollStatArray(bonuses);
-            StrRollDisplay.Content = abilityScores[0].ToString();
-            DexRollDisplay.Content = abilityScores[1].ToString();
-            ConRollDisplay.Content = abilityScores[2].ToString();
-            IntRollDisplay.Content = abilityScores[3].ToString();
-            WisRollDisplay.Content = abilityScores[4].ToString();
-            ChaRollDisplay.Content = abilityScores[5].ToString();
+            AbilityScores bonuses = new AbilityScores( 2, 0, 1, 0, 0, 0 );
+            AbilityScores abilityScores = AbilityScores.GenerateScores(bonuses);
+            StrRollDisplay.Content = abilityScores.strength.ToString();
+            DexRollDisplay.Content = abilityScores.dexterity.ToString();
+            ConRollDisplay.Content = abilityScores.constitution.ToString();
+            IntRollDisplay.Content = abilityScores.intelligence.ToString();
+            WisRollDisplay.Content = abilityScores.wisdom.ToString();
+            ChaRollDisplay.Content = abilityScores.charisma.ToString();
         }
     }
 }

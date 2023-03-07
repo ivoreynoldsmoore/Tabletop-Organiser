@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tabletop_Organiser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid>
         <Button Content="Roll Stats" HorizontalAlignment="Center" Margin="641,217,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Label x:Name="ConRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,100,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="DexRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,300,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="StrRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="0,100,500,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="IntRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="100,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="WisRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="300,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="ChaRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Center" Margin="500,100,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="StrRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,79,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="DexRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,158,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="ConRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,237,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="IntRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,316,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="WisRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,395,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Label x:Name="ChaRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,474,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        <Button x:Name="StrDexSwap" Content="Swap" HorizontalAlignment="Left" Margin="50,122,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
