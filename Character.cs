@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
+using System.Xml.Linq;
 using Utils;
 
 namespace Tabletop_Organiser
 {
     public class Character
     {
-        static Dictionary<int, AbilityScores> races = new Dictionary<int, AbilityScores>()
-        {
-            { 0, new AbilityScores(1, 1, 1, 1, 1, 1 ) },
-            { 1, new AbilityScores(0, 2, 0, 0, 0, 0) },
-            { 2, new AbilityScores(0, 0, 0, 0, 0, 2) },
-            { 3, new AbilityScores(0, 0, 2, 0, 0, 0) },
-            { 4, new AbilityScores(2, 0, 1, 0, 0, 0) },
-            { 5, new AbilityScores(0, 0, 0, 0, 2, 0) },
-            { 6, new AbilityScores(0, 2, 0, 0, 0, 0) },
-            { 7, new AbilityScores(0, 0, 0, 0, 0, 2) }
-        };
+        public string name { get; set; } = "";
 
-        public string name = "";
+        public Races.RaceIndex race { get; set; }
 
-        public Race race;
-
-        public AbilityScores scores = new AbilityScores(10,10,10,10,10,10);
+        public AbilityScores scores { get; set; } = new AbilityScores(10, 10, 10, 10, 10, 10);
         public int strengthModifier => (int)Math.Floor((double)scores.strength / 2) - 5;
 
         public int dexterityModifier => (int)Math.Floor((double)scores.dexterity / 2) - 5;
@@ -48,9 +40,9 @@ namespace Tabletop_Organiser
 
         public int proficiencyBonus => 2 + (int)Math.Floor((double)level / 5);
 
-        public bool[] proficiencies = new bool[18];
+        public bool[] proficiencies { get; set; } = new bool[18];
 
-        public int movementSpeed;
+        public int movementSpeed { get; set; }
 
         public int atheleticsBonus => proficiencies[0] ? strengthModifier + proficiencyBonus : strengthModifier;
 
@@ -88,13 +80,13 @@ namespace Tabletop_Organiser
 
         public int intimidationBonus => proficiencies[17] ? charismaModifier + proficiencyBonus : charismaModifier;
 
-        public ArmourType armourType;
+        public ArmourType armourType { get; set; }
 
         public int hitpoints { get; private set; }
 
-        public bool inspiration;
+        public bool inspiration { get; set; }
 
-        public bool autoAC;
+        public bool autoAC { get; set; }
 
         private int customAC;
         public int AC
@@ -104,11 +96,6 @@ namespace Tabletop_Organiser
                 autoAC= false;
                 customAC = value;
             }
-        }
-
-        private void RollStats()
-        {
-            AbilityScores.GenerateScores(races[(int)race]);
         }
 
         private int calcAC()
@@ -193,16 +180,90 @@ namespace Tabletop_Organiser
         }
     }
 
-    public enum Race
+    static public class Races
     {
-        human = 0,
-        elf = 1,
-        halfElf = 2,
-        dwarf = 3,
-        halfOrc = 4,
-        dragonborn = 5,
-        halfling = 6,
-        gnome = 7,
-        tiefling = 8,
+        public enum RaceIndex
+        {
+            human = 0,
+            elf = 1,
+            halfElf = 2,
+            dwarf = 3,
+            halfOrc = 4,
+            dragonborn = 5,
+            halfling = 6,
+            gnome = 7,
+            tiefling = 8,
+        }
+
+        public class Race
+        {
+            public RaceIndex index { get; set; }
+            public string name { get; set; }
+            public AbilityScores score { get; set; }
+            public Dictionary<string, AbilityScores[]> subraces { get; set; } = new Dictionary<string, AbilityScores[]>();
+            public Race(RaceIndex index, string name, AbilityScores score)
+            {
+                this.index= index;
+                this.name = name;
+                this.score= score;
+            }
+
+            public Race(RaceIndex index, string name, AbilityScores score, Dictionary<string, AbilityScores[]> subraces)
+            {
+                this.index = index;
+                this.name = name;
+                this.score = score;
+                this.subraces = subraces;
+            }
+        }
+
+        static readonly public Race[] races = new Race[] {
+            new Race(RaceIndex.human, "Human", new AbilityScores(1, 1, 1, 1, 1, 1)),
+            new Race(RaceIndex.elf, "Elf", new AbilityScores(0, 2, 0, 0, 0, 0)),
+            new Race(RaceIndex.halfElf, "Half Elf", new AbilityScores(0, 0, 0, 0, 0, 2)),
+            new Race(RaceIndex.dwarf, "Dwarf", new AbilityScores(0, 0, 2, 0, 0, 0)),
+            new Race(RaceIndex.halfOrc, "Half Orc", new AbilityScores(2, 0, 1, 0, 0, 0)),
+            new Race(RaceIndex.dragonborn, "Dragonborn", new AbilityScores(0, 0, 0, 0, 2, 0)),
+            new Race(RaceIndex.halfling, "Halfling", new AbilityScores(0, 2, 0, 0, 0, 0)),
+            new Race(RaceIndex.gnome, "Gnome", new AbilityScores(0, 0, 0, 2, 0, 0)),
+            new Race(RaceIndex.tiefling, "Tiefling", new AbilityScores(0, 0, 0, 0, 0, 2))
+        };
+
+        static public AbilityScores GetRacialBonus(RaceIndex raceIndex)
+        {
+            return races.Single(race => race.index == raceIndex).score;
+        }
+
+        public static string GetRaceName(RaceIndex raceIndex)
+        {
+            return races.Single(race => race.index == raceIndex).name;
+        }
+
+        public static RaceIndex GetRaceIndex(string name)
+        {
+            return races.Single(race => race.name == name).index;
+        }
+
+        public static Dictionary<string, AbilityScores[]> GetSubraces(RaceIndex raceIndex)
+        {
+            IEnumerable<Race> race = races.Where(race => race.index == raceIndex);
+            if (race.Count() > 0)
+            {
+                return race.First().subraces;
+            }
+            return new Dictionary<string, AbilityScores[]> { };
+        }
+
+        public static string[] GetRaces()
+        {
+            string[] names = { };
+            foreach (Race race in races)
+            {
+                names = names.Append(race.name).ToArray();
+            }
+            return names;
+        }
     }
+
+    
 }

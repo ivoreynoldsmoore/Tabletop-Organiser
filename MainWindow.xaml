@@ -5,16 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tabletop_Organiser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="768" Width="1024">
     <Grid>
+        <!--<Grid.Resources>
+            <StaticResource ResourceKey="raceNames" x:Key="raceNames"/>
+        </Grid.Resources>-->
         <Button Content="Roll Stats" HorizontalAlignment="Center" Margin="641,217,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Label x:Name="StrRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,79,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="DexRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,158,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="ConRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,237,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="IntRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,316,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="WisRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,395,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
-        <Label x:Name="ChaRollDisplay" Content="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="50,474,0,0" VerticalAlignment="Top" Width="25" Height="25" FontSize="18"/>
+        
+        <TextBox x:Name="StrDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,538" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Strength" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,592" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
+        <TextBox x:Name="DexDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,443" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Dexterity" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,497" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
+        <TextBox x:Name="ConDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,348" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Constitution" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,402" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
+        <TextBox x:Name="IntDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,253" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Intelligence" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,307" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
+        <TextBox x:Name="WisDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,158" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Wisdom" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,212" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
+        <TextBox x:Name="ChaDisplay" Text="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="37,0,0,63" VerticalAlignment="Bottom" Width="55" Height="55" FontSize="36" FontWeight="Bold" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <Label Content="Charisma" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,117" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
+        
         <Button x:Name="StrDexSwap" Content="Swap" HorizontalAlignment="Left" Margin="50,122,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="RaceComboBox" HorizontalAlignment="Left" Margin="542,90,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="RaceComboBox_SelectionChanged"/>
+        <ComboBox x:Name="SubraceComboBox" HorizontalAlignment="Left" Margin="700,90,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectedIndex="0" SelectionChanged="SubraceComboBox_SelectionChanged"/>
 
     </Grid>
 </Window>
