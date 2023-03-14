@@ -5,7 +5,7 @@ namespace Utils
 {
     public static class Roll
     {
-        static Random rand = new Random();
+        static Random rand = new();
 
         static public void SetSeed(int seed)
         {
@@ -24,7 +24,7 @@ namespace Utils
 
         public static int[] Rolld4(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(4)).ToArray();
@@ -39,7 +39,7 @@ namespace Utils
 
         public static int[] Rolld6(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(6)).ToArray();
@@ -54,7 +54,7 @@ namespace Utils
 
         public static int[] Rolld8(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(8)).ToArray();
@@ -69,7 +69,7 @@ namespace Utils
 
         public static int[] Rolld10(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(10)).ToArray();
@@ -84,7 +84,7 @@ namespace Utils
 
         public static int[] Rolld12(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(12)).ToArray();
@@ -94,7 +94,7 @@ namespace Utils
 
         public static int[] Rolld20(int n)
         {
-            int[] results = new int[] { };
+            int[] results = Array.Empty<int>();
             for (int i = 0; i < n; i++)
             {
                 results = results.Append(RollDice(20)).ToArray();
@@ -127,7 +127,7 @@ namespace Utils
             int intelligence = Roll.RollStat();
             int wisdom = Roll.RollStat();
             int charisma = Roll.RollStat();
-            AbilityScores scores = new AbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma);
+            AbilityScores scores = new(strength, dexterity, constitution, intelligence, wisdom, charisma);
             return scores;
         }
         public static AbilityScores GenerateScores(AbilityScores bonuses)
@@ -137,14 +137,14 @@ namespace Utils
             return scores;
         }
 
-        public AbilityScores(int _strength, int _dexterity, int _constitution, int _intelligence, int _wisdom, int _charisma)
+        public AbilityScores(int strength = 0, int dexterity = 0, int constitution = 0, int intelligence = 0, int wisdom = 0, int charisma = 0)
         {
-            strength = _strength;
-            dexterity = _dexterity;
-            constitution = _constitution;
-            intelligence = _intelligence;
-            wisdom = _wisdom;
-            charisma = _charisma;
+            this.strength = strength;
+            this.dexterity = dexterity;
+            this.constitution = constitution;
+            this.intelligence = intelligence;
+            this.wisdom = wisdom;
+            this.charisma = charisma;
         }
 
         public static AbilityScores Add(AbilityScores statsA, AbilityScores statsB)
@@ -155,7 +155,7 @@ namespace Utils
             int intelligence = Math.Clamp(statsA.intelligence + statsB.intelligence, 1, 20);
             int wisdom = Math.Clamp(statsA.wisdom + statsB.wisdom, 1, 20);
             int charisma = Math.Clamp(statsA.charisma + statsB.charisma, 1, 20);
-            AbilityScores newStats = new AbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma);
+            AbilityScores newStats = new(strength, dexterity, constitution, intelligence, wisdom, charisma);
             return newStats;
         }
     }

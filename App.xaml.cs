@@ -15,7 +15,7 @@ namespace Tabletop_Organiser
     {
         private void ApplicationStartup(object sender, StartupEventArgs e)
         {
-            MainWindow window = new MainWindow();
+            MainWindow window = new();
             window.Title = "Tabletop Organiser";
             window.Show();
         }

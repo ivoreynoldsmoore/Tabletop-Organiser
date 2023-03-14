@@ -19,6 +19,10 @@ namespace Tabletop_Organiser
 
         public Races.RaceIndex race { get; set; }
 
+        private bool hasSubrace => subrace == "";
+
+        public string subrace { get; set; } = "";
+
         public AbilityScores scores { get; set; } = new AbilityScores(10, 10, 10, 10, 10, 10);
         public int strengthModifier => (int)Math.Floor((double)scores.strength / 2) - 5;
 
@@ -96,6 +100,11 @@ namespace Tabletop_Organiser
                 autoAC= false;
                 customAC = value;
             }
+        }
+
+        public void resetAC()
+        {
+            autoAC= true;
         }
 
         private int calcAC()
@@ -200,7 +209,7 @@ namespace Tabletop_Organiser
             public RaceIndex index { get; set; }
             public string name { get; set; }
             public AbilityScores score { get; set; }
-            public Dictionary<string, AbilityScores[]> subraces { get; set; } = new Dictionary<string, AbilityScores[]>();
+            public Dictionary<string, AbilityScores> subraces { get; set; } = new Dictionary<string, AbilityScores>();
             public Race(RaceIndex index, string name, AbilityScores score)
             {
                 this.index= index;
@@ -208,7 +217,7 @@ namespace Tabletop_Organiser
                 this.score= score;
             }
 
-            public Race(RaceIndex index, string name, AbilityScores score, Dictionary<string, AbilityScores[]> subraces)
+            public Race(RaceIndex index, string name, AbilityScores score, Dictionary<string, AbilityScores> subraces)
             {
                 this.index = index;
                 this.name = name;
@@ -219,14 +228,14 @@ namespace Tabletop_Organiser
 
         static readonly public Race[] races = new Race[] {
             new Race(RaceIndex.human, "Human", new AbilityScores(1, 1, 1, 1, 1, 1)),
-            new Race(RaceIndex.elf, "Elf", new AbilityScores(0, 2, 0, 0, 0, 0)),
-            new Race(RaceIndex.halfElf, "Half Elf", new AbilityScores(0, 0, 0, 0, 0, 2)),
-            new Race(RaceIndex.dwarf, "Dwarf", new AbilityScores(0, 0, 2, 0, 0, 0)),
-            new Race(RaceIndex.halfOrc, "Half Orc", new AbilityScores(2, 0, 1, 0, 0, 0)),
-            new Race(RaceIndex.dragonborn, "Dragonborn", new AbilityScores(0, 0, 0, 0, 2, 0)),
-            new Race(RaceIndex.halfling, "Halfling", new AbilityScores(0, 2, 0, 0, 0, 0)),
-            new Race(RaceIndex.gnome, "Gnome", new AbilityScores(0, 0, 0, 2, 0, 0)),
-            new Race(RaceIndex.tiefling, "Tiefling", new AbilityScores(0, 0, 0, 0, 0, 2))
+            new Race(RaceIndex.elf, "Elf", new AbilityScores(dexterity:2), new Dictionary<string, AbilityScores> { {"Drow",new AbilityScores(charisma:1)}, {"High",new AbilityScores(intelligence:1)}, {"Wood",new AbilityScores(wisdom:1)} }),
+            new Race(RaceIndex.halfElf, "Half Elf", new AbilityScores(charisma:2)),
+            new Race(RaceIndex.dwarf, "Dwarf", new AbilityScores(constitution:2), new Dictionary<string, AbilityScores> { {"Hill",new AbilityScores(wisdom:1)}, {"Mountain",new AbilityScores(strength:2)} }),
+            new Race(RaceIndex.halfOrc, "Half Orc", new AbilityScores(strength:2, constitution:1)),
+            new Race(RaceIndex.dragonborn, "Dragonborn", new AbilityScores(wisdom:2)),
+            new Race(RaceIndex.halfling, "Halfling", new AbilityScores(dexterity:2), new Dictionary<string, AbilityScores> { {"Lightfoot",new AbilityScores(charisma:1)}, {"Stout",new AbilityScores(constitution:1)} }),
+            new Race(RaceIndex.gnome, "Gnome", new AbilityScores(intelligence: 2), new Dictionary<string, AbilityScores> { {"Forest",new AbilityScores(dexterity:1)}, {"Rock",new AbilityScores(constitution:1)}, {"Dark",new AbilityScores(dexterity:1)} }),
+            new Race(RaceIndex.tiefling, "Tiefling", new AbilityScores(charisma:2, intelligence:1))
         };
 
         static public AbilityScores GetRacialBonus(RaceIndex raceIndex)
@@ -244,19 +253,14 @@ namespace Tabletop_Organiser
             return races.Single(race => race.name == name).index;
         }
 
-        public static Dictionary<string, AbilityScores[]> GetSubraces(RaceIndex raceIndex)
+        public static Dictionary<string, AbilityScores> GetSubraces(RaceIndex raceIndex)
         {
-            IEnumerable<Race> race = races.Where(race => race.index == raceIndex);
-            if (race.Count() > 0)
-            {
-                return race.First().subraces;
-            }
-            return new Dictionary<string, AbilityScores[]> { };
+            return races.Single(race => race.index == raceIndex).subraces;
         }
 
         public static string[] GetRaces()
         {
-            string[] names = { };
+            string[] names = Array.Empty<string>(); ;
             foreach (Race race in races)
             {
                 names = names.Append(race.name).ToArray();
