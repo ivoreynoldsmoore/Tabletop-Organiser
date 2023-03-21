@@ -48,6 +48,11 @@ namespace Tabletop_Organiser
             subraceComboBox.DisplayMemberPath = "name";
             subraceComboBox.SelectedIndex = -1;
 
+            classComboBox.ItemsSource = Roles.roles;
+            classComboBox.DisplayMemberPath = "name";
+            classComboBox.SelectedValuePath = "index";
+            classComboBox.SelectedIndex = 0;
+
             Level.Text = "1";
 
             BindScore(strDisplay, "scores.strength");
@@ -114,6 +119,30 @@ namespace Tabletop_Organiser
             character.name = characterName.Text;
         }
 
+        private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Roles.RoleIndex? possibleIndex = (Roles.RoleIndex)raceComboBox.SelectedValue;
+            if (possibleIndex is Roles.RoleIndex index)
+            {
+                if (character.level > Roles.GetSubclassLevelReq(character.role.classIndex))
+                {
+                    subclassComboBox.Visibility = Visibility.Visible;
+                    subclassComboBox.ItemsSource = Roles.GetSubclasses(index);
+                    subclassComboBox.SelectedIndex = 0;
+                }
+                else
+                {
+                    subclassComboBox.SelectedIndex= -1;
+                    subclassComboBox.Visibility = Visibility.Hidden;
+                }
+                character.role = new Roles.CharacterRole(index, subraceComboBox.SelectedIndex);
+            }
+        }
+
+        private void subclassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            character.role = new Roles.CharacterRole(character.role.classIndex, subclassComboBox.SelectedIndex);
+        }
 
         private void PreviewLevelInput(object sender, TextCompositionEventArgs e)
         {
