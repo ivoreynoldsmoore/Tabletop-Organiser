@@ -46,6 +46,7 @@ namespace Tabletop_Organiser.CharacterBuilder
                 customScores = value;
                 autoScores = false;
             }
+        }
 
         public void setScores(AbilityScores scores)
         {
@@ -82,45 +83,45 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public int proficiencyBonus => 2 + (int)Math.Floor((double)level / 5);
 
-        public bool[] proficiencies { get; set; } = new bool[18];
+        public Skills[] proficiencies { get; set; } = Array.Empty<Skills>();
 
         public int movementSpeed { get; set; }
 
-        public int atheleticsBonus => proficiencies[0] ? strengthModifier + proficiencyBonus : strengthModifier;
+        public int atheleticsBonus => IsProficient(Skills.Atheletics) ? strengthModifier + proficiencyBonus : strengthModifier;
 
-        public int acrobaticsBonus => proficiencies[1] ? dexterityModifier + proficiencyBonus : dexterityModifier;
+        public int acrobaticsBonus => IsProficient(Skills.Acrobatics) ? dexterityModifier + proficiencyBonus : dexterityModifier;
 
-        public int sleightBonus => proficiencies[2] ? dexterityModifier + proficiencyBonus : dexterityModifier;
+        public int sleightBonus => IsProficient(Skills.Sleight) ? dexterityModifier + proficiencyBonus : dexterityModifier;
 
-        public int stealthBonus => proficiencies[3] ? dexterityModifier + proficiencyBonus : dexterityModifier;
+        public int stealthBonus => IsProficient(Skills.Stealth) ? dexterityModifier + proficiencyBonus : dexterityModifier;
 
-        public int arcanaBonus => proficiencies[4] ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
+        public int arcanaBonus => IsProficient(Skills.Arcana) ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
 
-        public int historyBonus => proficiencies[5] ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
+        public int historyBonus => IsProficient(Skills.History) ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
 
-        public int investigationBonus => proficiencies[6] ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
+        public int investigationBonus => IsProficient(Skills.Investigation) ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
 
-        public int natureBonus => proficiencies[7] ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
+        public int natureBonus => IsProficient(Skills.Nature) ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
 
-        public int religionBonus => proficiencies[8] ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
+        public int religionBonus => IsProficient(Skills.Religion) ? intelligenceModifier + proficiencyBonus : intelligenceModifier;
 
-        public int animalBonus => proficiencies[9] ? wisdomModifier + proficiencyBonus : wisdomModifier;
+        public int animalBonus => IsProficient(Skills.AnimalHandling) ? wisdomModifier + proficiencyBonus : wisdomModifier;
 
-        public int insightBonus => proficiencies[10] ? wisdomModifier + proficiencyBonus : wisdomModifier;
+        public int insightBonus => IsProficient(Skills.Insight) ? wisdomModifier + proficiencyBonus : wisdomModifier;
 
-        public int medicineBonus => proficiencies[11] ? wisdomModifier + proficiencyBonus : wisdomModifier;
+        public int medicineBonus => IsProficient(Skills.Medicine) ? wisdomModifier + proficiencyBonus : wisdomModifier;
 
-        public int perceptionBonus => proficiencies[12] ? wisdomModifier + proficiencyBonus : wisdomModifier;
+        public int perceptionBonus => IsProficient(Skills.Perception) ? wisdomModifier + proficiencyBonus : wisdomModifier;
 
-        public int survivalBonus => proficiencies[13] ? wisdomModifier + proficiencyBonus : wisdomModifier;
+        public int survivalBonus => IsProficient(Skills.Survival) ? wisdomModifier + proficiencyBonus : wisdomModifier;
 
-        public int deceptionBonus => proficiencies[14] ? charismaModifier + proficiencyBonus : charismaModifier;
+        public int deceptionBonus => IsProficient(Skills.Deception) ? charismaModifier + proficiencyBonus : charismaModifier;
 
-        public int persuasionBonus => proficiencies[15] ? charismaModifier + proficiencyBonus : charismaModifier;
+        public int persuasionBonus => IsProficient(Skills.Persuasion) ? charismaModifier + proficiencyBonus : charismaModifier;
 
-        public int performanceBonus => proficiencies[16] ? charismaModifier + proficiencyBonus : charismaModifier;
+        public int performanceBonus => IsProficient(Skills.Performance) ? charismaModifier + proficiencyBonus : charismaModifier;
 
-        public int intimidationBonus => proficiencies[17] ? charismaModifier + proficiencyBonus : charismaModifier;
+        public int intimidationBonus => IsProficient(Skills.Intimidation) ? charismaModifier + proficiencyBonus : charismaModifier;
 
         public ArmourType armourType { get; set; }
 
@@ -143,6 +144,11 @@ namespace Tabletop_Organiser.CharacterBuilder
         public void resetAC()
         {
             autoAC = true;
+        }
+
+        public bool IsProficient(Skills targetSkill)
+        {
+            return proficiencies.Where(skill => skill == targetSkill).Any();
         }
 
 
