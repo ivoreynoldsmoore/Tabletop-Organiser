@@ -31,8 +31,15 @@
         <Label Content="Charisma" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,117" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold" Width="110"/>
         
         <Button x:Name="StrDexSwap" Content="Swap" HorizontalAlignment="Left" Margin="50,122,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="raceComboBox" HorizontalAlignment="Left" Margin="542,90,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="RaceComboBox_SelectionChanged"/>
-        <ComboBox x:Name="subraceComboBox" HorizontalAlignment="Left" Margin="700,90,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectedIndex="0" SelectionChanged="SubraceComboBox_SelectionChanged"/>
+        <TextBox x:Name="characterName" HorizontalAlignment="Left" Margin="37,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="150" FontSize="20" Height="35" BorderBrush="Black" BorderThickness="2,2,2,2" TextChanged="characterName_TextChanged"/>
+        
+        <ComboBox x:Name="raceComboBox" HorizontalAlignment="Left" Margin="550,35,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="RaceComboBox_SelectionChanged" Height="30" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <ComboBox x:Name="subraceComboBox" HorizontalAlignment="Left" Margin="700,35,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="SubraceComboBox_SelectionChanged" Height="30" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+
+        <ComboBox x:Name="classComboBox" HorizontalAlignment="Left" Margin="250,35,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="classComboBox_SelectionChanged" Height="30" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+        <ComboBox x:Name="subclassComboBox" HorizontalAlignment="Left" Margin="400,35,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="subclassComboBox_SelectionChanged" Height="30" BorderBrush="Black" BorderThickness="2,2,2,2"/>
+
+        <TextBox x:Name="Level" PreviewTextInput="PreviewLevelInput" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="512,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="30" Height="30" FontSize="18" TextChanged="Level_TextChanged"/>
 
     </Grid>
 </Window>

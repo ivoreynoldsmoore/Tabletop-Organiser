@@ -3,27 +3,65 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Dynamic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Xml.Linq;
+using Tabletop_Organiser.CharacterBuilder.Proficiencies;
 using Utils;
 
-namespace Tabletop_Organiser
+namespace Tabletop_Organiser.CharacterBuilder
 {
+    public struct Feature
+    {
+        public readonly string name { get; }
+        public readonly string description { get; }
+
+        public Feature(string name, string description)
+        {
+            this.name = name;
+            this.description = description;
+        }
+    }
+
     public class Character
     {
         public string name { get; set; } = "";
 
-        public Races.RaceIndex race { get; set; }
+        public Race race { get; set; }
 
-        private bool hasSubrace => subrace == "";
+        public Roles.CharacterRole role { get; set; }
 
-        public string subrace { get; set; } = "";
+        private bool autoScores = true;
 
-        public AbilityScores scores { get; set; } = new AbilityScores(10, 10, 10, 10, 10, 10);
+        private AbilityScores customScores;
+        private AbilityScores baseScores = new AbilityScores(10, 10, 10, 10, 10, 10);
+        public AbilityScores scores
+        {
+            get { return autoScores ? calcScores(): customScores; }
+            set {
+                customScores = value;
+                autoScores = false;
+            }
+
+        public void setScores(AbilityScores scores)
+        {
+            baseScores = scores;
+        }
+
+        public void resetScores()
+        {
+            autoScores = true;
+        }
+
+        private AbilityScores calcScores()
+        {
+            AbilityScores scores = AbilityScores.Add(baseScores, Races.GetRacialBonus(race));
+            return scores;
+        }
         public int strengthModifier => (int)Math.Floor((double)scores.strength / 2) - 5;
 
         public int dexterityModifier => (int)Math.Floor((double)scores.dexterity / 2) - 5;
@@ -97,15 +135,16 @@ namespace Tabletop_Organiser
         {
             get { return autoAC ? calcAC() : customAC; }
             set {
-                autoAC= false;
+                autoAC = false;
                 customAC = value;
             }
         }
 
         public void resetAC()
         {
-            autoAC= true;
+            autoAC = true;
         }
+
 
         private int calcAC()
         {
@@ -166,6 +205,7 @@ namespace Tabletop_Organiser
             armourType = ArmourType.none;
             level = 1;
             customAC = 0;
+            customScores = new AbilityScores();
             autoAC = true;
         }
 
@@ -188,86 +228,4 @@ namespace Tabletop_Organiser
             barbDefense = 14
         }
     }
-
-    static public class Races
-    {
-        public enum RaceIndex
-        {
-            human = 0,
-            elf = 1,
-            halfElf = 2,
-            dwarf = 3,
-            halfOrc = 4,
-            dragonborn = 5,
-            halfling = 6,
-            gnome = 7,
-            tiefling = 8,
-        }
-
-        public class Race
-        {
-            public RaceIndex index { get; set; }
-            public string name { get; set; }
-            public AbilityScores score { get; set; }
-            public Dictionary<string, AbilityScores> subraces { get; set; } = new Dictionary<string, AbilityScores>();
-            public Race(RaceIndex index, string name, AbilityScores score)
-            {
-                this.index= index;
-                this.name = name;
-                this.score= score;
-            }
-
-            public Race(RaceIndex index, string name, AbilityScores score, Dictionary<string, AbilityScores> subraces)
-            {
-                this.index = index;
-                this.name = name;
-                this.score = score;
-                this.subraces = subraces;
-            }
-        }
-
-        static readonly public Race[] races = new Race[] {
-            new Race(RaceIndex.human, "Human", new AbilityScores(1, 1, 1, 1, 1, 1)),
-            new Race(RaceIndex.elf, "Elf", new AbilityScores(dexterity:2), new Dictionary<string, AbilityScores> { {"Drow",new AbilityScores(charisma:1)}, {"High",new AbilityScores(intelligence:1)}, {"Wood",new AbilityScores(wisdom:1)} }),
-            new Race(RaceIndex.halfElf, "Half Elf", new AbilityScores(charisma:2)),
-            new Race(RaceIndex.dwarf, "Dwarf", new AbilityScores(constitution:2), new Dictionary<string, AbilityScores> { {"Hill",new AbilityScores(wisdom:1)}, {"Mountain",new AbilityScores(strength:2)} }),
-            new Race(RaceIndex.halfOrc, "Half Orc", new AbilityScores(strength:2, constitution:1)),
-            new Race(RaceIndex.dragonborn, "Dragonborn", new AbilityScores(wisdom:2)),
-            new Race(RaceIndex.halfling, "Halfling", new AbilityScores(dexterity:2), new Dictionary<string, AbilityScores> { {"Lightfoot",new AbilityScores(charisma:1)}, {"Stout",new AbilityScores(constitution:1)} }),
-            new Race(RaceIndex.gnome, "Gnome", new AbilityScores(intelligence: 2), new Dictionary<string, AbilityScores> { {"Forest",new AbilityScores(dexterity:1)}, {"Rock",new AbilityScores(constitution:1)}, {"Dark",new AbilityScores(dexterity:1)} }),
-            new Race(RaceIndex.tiefling, "Tiefling", new AbilityScores(charisma:2, intelligence:1))
-        };
-
-        static public AbilityScores GetRacialBonus(RaceIndex raceIndex)
-        {
-            return races.Single(race => race.index == raceIndex).score;
-        }
-
-        public static string GetRaceName(RaceIndex raceIndex)
-        {
-            return races.Single(race => race.index == raceIndex).name;
-        }
-
-        public static RaceIndex GetRaceIndex(string name)
-        {
-            return races.Single(race => race.name == name).index;
-        }
-
-        public static Dictionary<string, AbilityScores> GetSubraces(RaceIndex raceIndex)
-        {
-            return races.Single(race => race.index == raceIndex).subraces;
-        }
-
-        public static string[] GetRaces()
-        {
-            string[] names = Array.Empty<string>(); ;
-            foreach (Race race in races)
-            {
-                names = names.Append(race.name).ToArray();
-            }
-            return names;
-        }
-    }
-
-    
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Utils
 {
@@ -112,12 +114,12 @@ namespace Utils
 
     public class AbilityScores
     {
-        public int strength;
-        public int dexterity;
-        public int constitution;
-        public int intelligence;
-        public int wisdom;
-        public int charisma;
+        public int strength { get; set; }
+        public int dexterity { get; set; }
+        public int constitution { get; set; }
+        public int intelligence { get; set; }
+        public int wisdom { get; set; }
+        public int charisma { get; set; }
 
         public static AbilityScores RollScores()
         {
@@ -136,6 +138,7 @@ namespace Utils
             scores = Add(scores,bonuses);
             return scores;
         }
+        public AbilityScores() { }
 
         public AbilityScores(int strength = 0, int dexterity = 0, int constitution = 0, int intelligence = 0, int wisdom = 0, int charisma = 0)
         {

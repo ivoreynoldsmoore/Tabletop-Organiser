@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Utils;
+using Tabletop_Organiser.CharacterBuilder;
+using System.Text.RegularExpressions;
+using Tabletop_Organiser.FileHandling;
 
 namespace Tabletop_Organiser
 {
@@ -24,30 +27,38 @@ namespace Tabletop_Organiser
     public partial class MainWindow : Window
     {
         public Character character;
-        private AbilityScores bonuses;
+        private static readonly Regex isInteger = new Regex("[0-9]+");
         public MainWindow()
         {
             InitializeComponent();
+            FileHandler.Initialise();
             character = new();
+            InitialiseControls();
+        }
+
+        private void InitialiseControls()
+        {
+            characterName.Text = "Name";
 
             raceComboBox.ItemsSource = Races.races;
             raceComboBox.DisplayMemberPath = "name";
             raceComboBox.SelectedValuePath = "index";
             raceComboBox.SelectedIndex = 0;
 
-            subraceComboBox.DisplayMemberPath = "Key";
-            subraceComboBox.SelectedValuePath = "Value";
+            subraceComboBox.DisplayMemberPath = "name";
+            subraceComboBox.SelectedIndex = -1;
 
-            BindScore("scores.strength");   
-            BindScore("scores.dexterity");
-            BindScore("scores.constitution");
-            BindScore("scores.intelligence");
-            BindScore("scores.wisdom");
-            BindScore("scores.charisma");
-            bonuses = new();
+            Level.Text = "1";
+
+            BindScore(strDisplay, "scores.strength");
+            BindScore(dexDisplay, "scores.dexterity");
+            BindScore(conDisplay, "scores.constitution");
+            BindScore(intDisplay, "scores.intelligence");
+            BindScore(wisDisplay, "scores.wisdom");
+            BindScore(chaDisplay, "scores.charisma");
         }
 
-        private void BindScore(string PropertyPath)
+        private void BindScore(TextBox Display, string PropertyPath)
         {
             Binding bindStat = new()
             {
@@ -56,12 +67,12 @@ namespace Tabletop_Organiser
                 Mode = BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             };
-            chaDisplay.SetBinding(ContentProperty, bindStat);
+            Display.SetBinding(ContentProperty, bindStat);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            character.scores = AbilityScores.GenerateScores(AbilityScores.Add(bonuses,Races.GetRacialBonus(character.race)));
+            character.scores = AbilityScores.GenerateScores(Races.GetRacialBonus(character.race));
             strDisplay.Text = character.scores.strength.ToString();
             dexDisplay.Text = character.scores.dexterity.ToString();
             conDisplay.Text = character.scores.constitution.ToString();
@@ -72,16 +83,12 @@ namespace Tabletop_Organiser
 
         private void RaceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            Races.RaceIndex? possibleIndex = (Races.RaceIndex)comboBox.SelectedValue;
+            Races.RaceIndex? possibleIndex = (Races.RaceIndex)raceComboBox.SelectedValue;
             if (possibleIndex is Races.RaceIndex index)
             {
-                bonuses = Races.GetRacialBonus(index);
-                character.race = index;
-                Debug.Print(character.race.ToString());
-                Dictionary<string, AbilityScores> subraces = Races.GetSubraces(index);
-                Debug.Print(subraces.Keys.Count.ToString());
-                if (subraces.Keys.Count > 0)
+                Races.Race.Subrace[] subraces = Races.GetSubraces(index);
+                Debug.Print(subraces.Length.ToString());
+                if (subraces.Length > 0)
                 {
                     subraceComboBox.Visibility = Visibility.Visible;
                     subraceComboBox.ItemsSource = subraces;
@@ -89,26 +96,53 @@ namespace Tabletop_Organiser
                 }
                 else
                 {
-                    character.subrace = "";
                     subraceComboBox.SelectedIndex = -1;
                     subraceComboBox.Visibility = Visibility.Hidden;
                 }
+                Debug.Print(character.race.ToString());
+                character.race = new Race(index, subraceComboBox.SelectedIndex);
             }
         }
 
         private void SubraceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            int itemIndex = comboBox.SelectedIndex;
-            if (itemIndex >= 0)
+            character.race = new Race(character.race.raceIndex, subraceComboBox.SelectedIndex);
+        }
+
+        private void characterName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            character.name = characterName.Text;
+        }
+
+
+        private void PreviewLevelInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !isInteger.IsMatch(e.Text);
+        }
+
+        private void Level_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = ((TextBox)sender).Text;
+            if (text != "")
             {
-                bonuses = AbilityScores.Add(Races.GetRacialBonus(character.race), (AbilityScores)comboBox.SelectedValue);
-                character.subrace = comboBox.Text;
+                character.level = Math.Clamp(int.Parse(text), 1, 20);
             }
-            else
+        }
+
+        private void UpdateFeaturesList()
+        {
+            FeaturePanel.Children.Clear();
+            Feature[] features = Races.GetFeatures(character.race);
+            features = features.Concat(Roles.GetFeatures(character.role)).ToArray();
+            foreach (Feature feature in features)
             {
-                bonuses = Races.GetRacialBonus(character.race);
-                character.subrace = "";
+                Expander expand = new Expander();
+                TextBox box = new TextBox();
+                box.Text = feature.description;
+                expand.Name = feature.name + "Expander";
+                expand.Header = feature.name;
+                expand.Content = box;
+                FeaturePanel.Children.Add(expand);
             }
         }
     }
