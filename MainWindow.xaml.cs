@@ -106,7 +106,13 @@ namespace Tabletop_Organiser
                 Debug.Print(character.race.ToString());
                 character.race = new Race(index, subraceComboBox.SelectedIndex);
                 UpdateScores();
+                UpdateSpeed();
             }
+        }
+
+        private void UpdateSpeed()
+        {
+            Speed.Content = character.movementSpeed.ToString();
         }
 
         private void SubraceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
