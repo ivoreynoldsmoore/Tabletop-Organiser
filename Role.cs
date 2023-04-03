@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
+using System.Text.Json.Serialization;
+using Tabletop_Organiser.CharacterBuilder.Proficiencies;
 
 namespace Tabletop_Organiser.CharacterBuilder
 {
@@ -41,7 +43,6 @@ namespace Tabletop_Organiser.CharacterBuilder
             wizard
         }
 
-
         public class Role
         {
             public class Subrole
@@ -57,12 +58,13 @@ namespace Tabletop_Organiser.CharacterBuilder
             public string name { get; private set; }
             public RoleIndex index { get; private set; }
             public int hitDice { get; private set; }
-            public bool[] saveProficiencies { get; private set; }
-            public bool[] armourProficiencies { get; private set; }
 
-            public bool[] weaponProficiencies { get; private set; }
+            public HashSet<Abilities> saveProficiencies { get; set; } = new();
+            public HashSet<Skills> skillProficiencies { get; set; } = new();
+            public HashSet<ArmourCatagory> armourProficiencies { get; set; } = new();
+            public HashSet<Weapons> weaponProficiencies { get; set; } = new();
+            public HashSet<Tools> toolProficiencies { get; set; } = new();
 
-            public bool[] toolProficieincies { get; private set; }
             public Feature[] features { get; private set; }
 
             public int subroleLevelReq { get; private set; }
@@ -89,18 +91,18 @@ namespace Tabletop_Organiser.CharacterBuilder
         {
             roles = new Role[]
             {
-                new Role("Artificer", RoleIndex.artificer, 8, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Barbarian", RoleIndex.barbarian, 12, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Bard", RoleIndex.bard, 10, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Druid", RoleIndex.druid, 8, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Fighter", RoleIndex.fighter, 10, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Monk", RoleIndex.monk, 10, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Paladin", RoleIndex.paladin, 10, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Ranger", RoleIndex.ranger, 10, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Rogue", RoleIndex.rogue, 8, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Sorcerer", RoleIndex.sorcerer, 6, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Warlock", RoleIndex.warlock, 8, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
-                new Role("Wizard", RoleIndex.wizard, 6, new Feature[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new bool[] { }, new Role.Subrole[] { }),
+                new Role("Artificer", RoleIndex.artificer, 8, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Barbarian", RoleIndex.barbarian, 12, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Bard", RoleIndex.bard, 10, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Druid", RoleIndex.druid, 8, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Fighter", RoleIndex.fighter, 10, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Monk", RoleIndex.monk, 10, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Paladin", RoleIndex.paladin, 10, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Ranger", RoleIndex.ranger, 10, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Rogue", RoleIndex.rogue, 8, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Sorcerer", RoleIndex.sorcerer, 6, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Warlock", RoleIndex.warlock, 8, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
+                new Role("Wizard", RoleIndex.wizard, 6, new Feature[] { }, new(), new(), new(), new(), new Role.Subrole[] { }),
             };
         }
 

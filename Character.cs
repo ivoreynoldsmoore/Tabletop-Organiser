@@ -35,7 +35,7 @@ namespace Tabletop_Organiser.CharacterBuilder
 
     public class Character
     {
-        public string name { get; set; } = "";
+        public string name { get; set; }
 
         public Race race { get; set; }
 
@@ -67,7 +67,15 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public int proficiencyBonus => 2 + (int)Math.Floor((double)level / 5);
 
-        public Skills[] proficiencies { get; set; } = Array.Empty<Skills>();
+        public HashSet<Skills> skillProficiencies { get; set; } = new();
+
+        public HashSet<Abilities> saveProficiencies { get; set; } = new();
+
+        public HashSet<Weapons> weaponProficiencies { get; set; } = new();
+
+        public HashSet<Tools> toolProficiencies { get; set; } = new();
+
+        public HashSet<ArmourCatagory> armourProficiencies { get; set; } = new();
 
         public int movementSpeed { get; set; }
 
@@ -117,8 +125,9 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public Feature[] features { get; set; }
 
+        public bool IsProficient(Skills targetSkill)
         {
-            autoAC = true;
+            return skillProficiencies.Where(skill => skill == targetSkill).Any();
         }
 
         public Character()
@@ -216,6 +225,20 @@ namespace Tabletop_Organiser.CharacterBuilder
             features = Roles.GetFeatures(role);
             features = features.Concat(Races.GetFeatures(race)).ToArray();
         }
+
+        public void UpdateProficiencies()
+        {
+            Roles.Role role = Roles.GetRole(this.role.roleIndex);
+            skillProficiencies = role.skillProficiencies;
+            saveProficiencies = role.saveProficiencies;
+            armourProficiencies = role.armourProficiencies;
+            toolProficiencies = role.toolProficiencies;
+            weaponProficiencies = role.weaponProficiencies;
+            //Roles.Role.Subrole? subrole;
+            //if (Roles.GetSubrole(this.role, out subrole));
+            //{
+            //    skillProficiencies.Union(subrole.skill);
+            //}
         }
 
         public enum ArmourType
