@@ -30,6 +30,10 @@ namespace Tabletop_Organiser
         private static readonly Regex isInteger = new Regex("[0-9]+");
         public MainWindow()
         {
+            character = new Character()
+            {
+                baseScores = new AbilityScores(10, 10, 10, 10, 10, 10),
+            };
             InitializeComponent();
             FileHandler.Initialise();
             character = new();
@@ -77,13 +81,8 @@ namespace Tabletop_Organiser
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            character.scores = AbilityScores.GenerateScores(Races.GetRacialBonus(character.race));
-            strDisplay.Text = character.scores.strength.ToString();
-            dexDisplay.Text = character.scores.dexterity.ToString();
-            conDisplay.Text = character.scores.constitution.ToString();
-            intDisplay.Text = character.scores.intelligence.ToString();
-            wisDisplay.Text = character.scores.wisdom.ToString();
-            chaDisplay.Text = character.scores.charisma.ToString();
+            character.baseScores = AbilityScores.RollScores();
+            UpdateScores();
         }
 
         private void RaceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -106,6 +105,7 @@ namespace Tabletop_Organiser
                 }
                 Debug.Print(character.race.ToString());
                 character.race = new Race(index, subraceComboBox.SelectedIndex);
+                UpdateScores();
             }
         }
 
@@ -147,6 +147,21 @@ namespace Tabletop_Organiser
         private void PreviewLevelInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !isInteger.IsMatch(e.Text);
+        }
+
+        private void UpdateScores()
+        {
+            if (AutoBonusCheckbox.IsChecked != null)
+            {
+                UpdateAC();
+                AbilityScores displayedScores = (bool)AutoBonusCheckbox.IsChecked ? character.scores : character.baseScores;
+                strDisplay.Text = displayedScores.strength.ToString();
+                dexDisplay.Text = displayedScores.dexterity.ToString();
+                conDisplay.Text = displayedScores.constitution.ToString();
+                intDisplay.Text = displayedScores.intelligence.ToString();
+                wisDisplay.Text = displayedScores.wisdom.ToString();
+                chaDisplay.Text = displayedScores.charisma.ToString();
+            }
         }
 
         private void Level_TextChanged(object sender, TextChangedEventArgs e)

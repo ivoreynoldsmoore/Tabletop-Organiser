@@ -35,34 +35,12 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public Roles.CharacterRole role { get; set; }
 
-        private bool autoScores = true;
+        public bool scoreSet { get; set; }
 
-        private AbilityScores customScores;
-        private AbilityScores baseScores = new AbilityScores(10, 10, 10, 10, 10, 10);
-        public AbilityScores scores
-        {
-            get { return autoScores ? calcScores(): customScores; }
-            set {
-                customScores = value;
-                autoScores = false;
-            }
-        }
+        public AbilityScores baseScores { get; set; }
 
-        public void setScores(AbilityScores scores)
-        {
-            baseScores = scores;
-        }
+        public AbilityScores scores { get { return GetTotalScores(); } }
 
-        public void resetScores()
-        {
-            autoScores = true;
-        }
-
-        private AbilityScores calcScores()
-        {
-            AbilityScores scores = AbilityScores.Add(baseScores, Races.GetRacialBonus(race));
-            return scores;
-        }
         public int strengthModifier => (int)Math.Floor((double)scores.strength / 2) - 5;
 
         public int dexterityModifier => (int)Math.Floor((double)scores.dexterity / 2) - 5;
@@ -207,12 +185,15 @@ namespace Tabletop_Organiser.CharacterBuilder
         }
 
         public Character()
+        public AbilityScores GetTotalScores()
         {
             armourType = ArmourType.none;
             level = 1;
             customAC = 0;
             customScores = new AbilityScores();
             autoAC = true;
+            return AbilityScores.Add(baseScores, Races.GetRacialBonus(race));
+        }
         }
 
         public enum ArmourType
