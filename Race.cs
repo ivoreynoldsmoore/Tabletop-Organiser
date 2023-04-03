@@ -59,6 +59,7 @@ namespace Tabletop_Organiser.CharacterBuilder
             public Feature[] features { get; private set; } = Array.Empty<Feature>();
             public Subrace[] subraces { get; private set; } = Array.Empty<Subrace>();
             public Race(RaceIndex index, string name, AbilityScores score, Feature[] features)
+            public Feature[] features { get; private set; }
             {
                 this.index = index;
                 this.name = name;
@@ -109,9 +110,9 @@ namespace Tabletop_Organiser.CharacterBuilder
         {
             Race race = races.Single(race => race.index == characterRace.raceIndex);
             Feature[] features = race.features;
-            if (characterRace.subraceIndex >= 0)
+            if (characterRace.subraceIndex > 0)
             {
-                features = features.Concat(race.subraces[characterRace.subraceIndex].features).ToArray();
+                features = features.Concat(subraces.Single(subrace => subrace.index == characterRace.subraceIndex).features).ToArray();
             }
             return features;
         }

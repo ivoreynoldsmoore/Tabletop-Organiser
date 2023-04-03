@@ -91,22 +91,24 @@ namespace Tabletop_Organiser
             Races.RaceIndex? possibleIndex = (Races.RaceIndex)raceComboBox.SelectedValue;
             if (possibleIndex is Races.RaceIndex index)
             {
-                Races.Race.Subrace[] subraces = Races.GetSubraces(index);
-                Debug.Print(subraces.Length.ToString());
+                int boxIndex;
+                Races.Subrace[] subraces = Races.GetSubraces(index);
                 if (subraces.Length > 0)
                 {
                     subraceComboBox.Visibility = Visibility.Visible;
                     subraceComboBox.ItemsSource = subraces;
-                    subraceComboBox.SelectedIndex = 0;
+                    boxIndex = 0;
                 }
                 else
                 {
-                    subraceComboBox.SelectedIndex = -1;
                     subraceComboBox.Visibility = Visibility.Hidden;
+                    subraceComboBox.ItemsSource = Array.Empty<Races.Subrace>();
+                    boxIndex = -1;
                 }
-                Debug.Print(character.race.ToString());
-                character.race = new Race(index, subraceComboBox.SelectedIndex);
+                character.race = new Race(index, character.race.subraceIndex);
+                subraceComboBox.SelectedIndex = boxIndex;
                 UpdateScores();
+                UpdateFeaturesList();
                 UpdateSpeed();
             }
         }
@@ -118,7 +120,22 @@ namespace Tabletop_Organiser
 
         private void SubraceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            character.race = new Race(character.race.raceIndex, subraceComboBox.SelectedIndex);
+            if (subraceComboBox.SelectedIndex >= 0)
+            {
+                Races.SubraceIndex? possibleIndex = ((Races.Subrace)subraceComboBox.SelectedValue).index;
+                if (possibleIndex is Races.SubraceIndex subraceIndex)
+                {
+                    character.race = new Race(character.race.raceIndex, subraceIndex);
+                }
+            }
+            else
+            {
+                character.race = new Race(character.race.raceIndex, Races.SubraceIndex.none);
+            }
+            UpdateScores();
+            UpdateFeaturesList();
+            character.OnRaceChanged();
+        }
 
         private void characterName_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -143,29 +160,33 @@ namespace Tabletop_Organiser
             character.name = characterName.Text;
         }
 
-        private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void roleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Roles.RoleIndex? possibleIndex = (Roles.RoleIndex)raceComboBox.SelectedValue;
+            Roles.RoleIndex? possibleIndex = (Roles.RoleIndex)roleComboBox.SelectedValue;
             if (possibleIndex is Roles.RoleIndex index)
             {
-                if (character.level > Roles.GetSubclassLevelReq(character.role.classIndex))
+                if (character.level > Roles.GetSubclassLevelReq(character.role.roleIndex))
                 {
-                    subclassComboBox.Visibility = Visibility.Visible;
-                    subclassComboBox.ItemsSource = Roles.GetSubclasses(index);
-                    subclassComboBox.SelectedIndex = 0;
+                    subroleComboBox.Visibility = Visibility.Visible;
+                    subroleComboBox.ItemsSource = Roles.GetSubclasses(index);
+                    subroleComboBox.SelectedIndex = 0;
                 }
                 else
                 {
-                    subclassComboBox.SelectedIndex= -1;
-                    subclassComboBox.Visibility = Visibility.Hidden;
+                    subroleComboBox.SelectedIndex= -1;
+                    subroleComboBox.Visibility = Visibility.Hidden;
                 }
                 character.role = new Roles.CharacterRole(index, subraceComboBox.SelectedIndex);
+                UpdateFeaturesList();
             }
+            character.OnRoleChanged();
         }
 
-        private void subclassComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void subroleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            character.role = new Roles.CharacterRole(character.role.classIndex, subclassComboBox.SelectedIndex);
+            character.role = new Roles.CharacterRole(character.role.roleIndex, subroleComboBox.SelectedIndex);
+            UpdateFeaturesList();
+            character.OnRoleChanged();
         }
 
         private void PreviewLevelInput(object sender, TextCompositionEventArgs e)
@@ -218,15 +239,14 @@ namespace Tabletop_Organiser
         private void UpdateFeaturesList()
         {
             FeaturePanel.Children.Clear();
-            Feature[] features = Races.GetFeatures(character.race);
-            features = features.Concat(Roles.GetFeatures(character.role)).ToArray();
-            foreach (Feature feature in features)
+            foreach (Feature feature in character.features)
             {
                 Expander expand = new Expander();
-                TextBox box = new TextBox();
+                TextBlock box = new TextBlock();
                 box.Text = feature.description;
+                box.TextWrapping = TextWrapping.Wrap;
                 expand.Name = feature.name + "Expander";
-                expand.Header = feature.name;
+                expand.Header = feature.displayName;
                 expand.Content = box;
                 FeaturePanel.Children.Add(expand);
             }

@@ -85,5 +85,13 @@
                 </StackPanel>
             </StackPanel>
         </DockPanel>
+
+
+
+
+        <ScrollViewer x:Name="FeatureScroller" Width="300" Height="300" Margin="610,362,40,40" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="FeaturePanel">
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

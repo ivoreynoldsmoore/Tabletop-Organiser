@@ -18,12 +18,18 @@ namespace Tabletop_Organiser.CharacterBuilder
     public struct Feature
     {
         public readonly string name { get; }
-        public readonly string description { get; }
 
-        public Feature(string name, string description)
+        public readonly string displayName { get; }
+        public readonly string description { get; }
+        public readonly int levelReq { get; }
+
+        [JsonConstructor]
+        public Feature(string name, string displayName, string description, int levelReq = 0)
         {
             this.name = name;
+            this.displayName = displayName;
             this.description = description;
+            this.levelReq = levelReq;
         }
     }
 
@@ -109,14 +115,20 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public int ac { get; set; }
 
+        public Feature[] features { get; set; }
 
         {
             autoAC = true;
         }
 
-        public bool IsProficient(Skills targetSkill)
+        public Character()
         {
-            return proficiencies.Where(skill => skill == targetSkill).Any();
+            name = "";
+            scoreSet = false;
+            race = new Race(Races.RaceIndex.human,0);
+            baseScores = new AbilityScores();
+            features = Array.Empty<Feature>();
+            armourType = ArmourType.none;
         }
 
         public void calcAC()
@@ -184,6 +196,25 @@ namespace Tabletop_Organiser.CharacterBuilder
             customScores = new AbilityScores();
             autoAC = true;
             return AbilityScores.Add(baseScores, Races.GetRacialBonus(race));
+        }
+
+        public void OnRoleChanged()
+        {
+            UpdateProficiencies();
+            UpdateFeatures();
+            HitDie = Roles.GetRole(role.roleIndex).hitDice;
+        }
+
+        public void OnRaceChanged()
+        {
+            UpdateProficiencies();
+            UpdateFeatures();
+        }
+
+        private void UpdateFeatures()
+        {
+            features = Roles.GetFeatures(role);
+            features = features.Concat(Races.GetFeatures(race)).ToArray();
         }
         }
 
