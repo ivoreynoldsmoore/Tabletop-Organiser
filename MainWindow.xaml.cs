@@ -42,8 +42,6 @@ namespace Tabletop_Organiser
 
         private void InitialiseControls()
         {
-            characterName.Text = "Name";
-
             raceComboBox.ItemsSource = Races.races;
             raceComboBox.DisplayMemberPath = "name";
             raceComboBox.SelectedValuePath = "index";
@@ -56,6 +54,8 @@ namespace Tabletop_Organiser
             classComboBox.DisplayMemberPath = "name";
             classComboBox.SelectedValuePath = "index";
             classComboBox.SelectedIndex = 0;
+            characterName.Text = "Name";
+            characterName.Foreground = new SolidColorBrush(Color.FromArgb(155, 0, 0, 0));
 
             Level.Text = "1";
 
@@ -112,6 +112,23 @@ namespace Tabletop_Organiser
         private void SubraceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             character.race = new Race(character.race.raceIndex, subraceComboBox.SelectedIndex);
+
+        private void characterName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (characterName.Text == "Name")
+            {
+                characterName.Text = "";
+                characterName.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            }
+        }
+
+        private void characterName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (characterName.Text == "")
+            {
+                characterName.Text = "Name";
+                characterName.Foreground = new SolidColorBrush(Color.FromArgb(155, 0, 0, 0));
+            }
         }
 
         private void characterName_TextChanged(object sender, TextChangedEventArgs e)
@@ -187,6 +204,13 @@ namespace Tabletop_Organiser
                 expand.Header = feature.name;
                 expand.Content = box;
                 FeaturePanel.Children.Add(expand);
+            }
+        }
+        private void Enter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                Keyboard.ClearFocus();
             }
         }
     }

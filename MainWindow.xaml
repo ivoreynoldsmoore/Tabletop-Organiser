@@ -14,6 +14,9 @@
             <StackPanel x:Name="TopPanel" Orientation="Horizontal" DockPanel.Dock="Top">
                 <ContentControl Width="50" Height="80">
                 </ContentControl>
+                <TextBox x:Name="characterName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="150" FontSize="20" Height="35" BorderBrush="Black" BorderThickness="2,2,2,2" TextChanged="characterName_TextChanged" GotFocus="characterName_GotFocus" LostFocus="characterName_LostFocus" UseLayoutRounding="False"/>
+                <ContentControl Width="50" Height="80">
+                </ContentControl>
                 <ComboBox x:Name="raceComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" IsEditable="True" IsReadOnly="True" SelectionChanged="RaceComboBox_SelectionChanged" Height="30" BorderBrush="Black" BorderThickness="2,2,2,2" Padding="2,2,2,2" ScrollViewer.CanContentScroll="False"/>
                 <ContentControl Width="25" Height="80">
                 </ContentControl>
