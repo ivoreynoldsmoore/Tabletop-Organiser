@@ -64,21 +64,28 @@ namespace Tabletop_Organiser
             subroleComboBox.SelectedIndex = -1;
         }
 
-            classComboBox.ItemsSource = Roles.roles;
-            classComboBox.DisplayMemberPath = "name";
-            classComboBox.SelectedValuePath = "index";
-            classComboBox.SelectedIndex = 0;
+        private void InitialiseControls()
+        {
             characterName.Text = "Name";
             characterName.Foreground = new SolidColorBrush(Color.FromArgb(155, 0, 0, 0));
 
             Level.Text = "1";
 
-            BindScore(strDisplay, "scores.strength");
-            BindScore(dexDisplay, "scores.dexterity");
-            BindScore(conDisplay, "scores.constitution");
-            BindScore(intDisplay, "scores.intelligence");
-            BindScore(wisDisplay, "scores.wisdom");
-            BindScore(chaDisplay, "scores.charisma");
+            Binding bindSpeed = new()
+            {
+                Source = character,
+                Path = new PropertyPath("speed"),
+                Mode = BindingMode.OneWay,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
+            Speed.SetBinding(ContentProperty, bindSpeed);
+
+            //BindScore(strDisplay, "scores.strength");
+            //BindScore(dexDisplay, "scores.dexterity");
+            //BindScore(conDisplay, "scores.constitution");
+            //BindScore(intDisplay, "scores.intelligence");
+            //BindScore(wisDisplay, "scores.wisdom");
+            //BindScore(chaDisplay, "scores.charisma");
             UpdateAC();
         }
 
@@ -286,6 +293,28 @@ namespace Tabletop_Organiser
             {
                 Keyboard.ClearFocus();
             }
+        }
+
+        private void AutoBonusCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateScores();
+            dexDisplay.IsEnabled = false;
+            strDisplay.IsEnabled = false;
+            conDisplay.IsEnabled = false;
+            intDisplay.IsEnabled = false;
+            wisDisplay.IsEnabled = false;
+            chaDisplay.IsEnabled = false;
+        }
+
+        private void AutoBonusCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            UpdateScores();
+            dexDisplay.IsEnabled = true;
+            strDisplay.IsEnabled = true;
+            conDisplay.IsEnabled = true;
+            intDisplay.IsEnabled = true;
+            wisDisplay.IsEnabled = true;
+            chaDisplay.IsEnabled = true;
         }
     }
 }

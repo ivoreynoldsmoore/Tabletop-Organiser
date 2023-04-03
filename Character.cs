@@ -196,14 +196,8 @@ namespace Tabletop_Organiser.CharacterBuilder
             }
         }
 
-        public Character()
         public AbilityScores GetTotalScores()
         {
-            armourType = ArmourType.none;
-            level = 1;
-            customAC = 0;
-            customScores = new AbilityScores();
-            autoAC = true;
             return AbilityScores.Add(baseScores, Races.GetRacialBonus(race));
         }
 
