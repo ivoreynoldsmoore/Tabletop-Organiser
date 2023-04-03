@@ -114,6 +114,7 @@ namespace Utils
 
     public class AbilityScores
     {
+        private static readonly int max = 30;
         public int strength { get; set; }
         public int dexterity { get; set; }
         public int constitution { get; set; }
@@ -150,16 +151,60 @@ namespace Utils
             this.charisma = charisma;
         }
 
+        public override int GetHashCode() => (strength, dexterity, constitution, intelligence, wisdom, charisma).GetHashCode();
+
+        public override bool Equals(object? obj) => this.Equals(obj as AbilityScores);
+
+        public bool Equals(AbilityScores? scores)
+        {
+            if (scores == null) return false;
+
+            if (ReferenceEquals(this,scores)) return true;
+
+            if (this.GetType() != scores.GetType()) return false;
+
+            return (scores.strength == strength) && (scores.dexterity == dexterity) && (scores.constitution == constitution) && (scores.intelligence == intelligence) && (scores.wisdom == wisdom) && (scores.charisma == charisma);
+        }
+
+        public static bool operator ==(AbilityScores? left, AbilityScores? right)
+        {
+            if (left is null)
+            {
+                if (right is null)
+                {
+                    return true;
+                }
+
+                // Only the left side is null.
+                return false;
+            }
+            // Equals handles case of null on right side.
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(AbilityScores left, AbilityScores right) => !(left == right);
+
         public static AbilityScores Add(AbilityScores statsA, AbilityScores statsB)
         {
-            int strength = Math.Clamp(statsA.strength + statsB.strength, 1, 20);
-            int dexterity = Math.Clamp(statsA.dexterity + statsB.dexterity, 1, 20);
-            int constitution = Math.Clamp(statsA.constitution + statsB.constitution, 1, 20);
-            int intelligence = Math.Clamp(statsA.intelligence + statsB.intelligence, 1, 20);
-            int wisdom = Math.Clamp(statsA.wisdom + statsB.wisdom, 1, 20);
-            int charisma = Math.Clamp(statsA.charisma + statsB.charisma, 1, 20);
+            int strength = Math.Clamp(statsA.strength + statsB.strength, 0, max);
+            int dexterity = Math.Clamp(statsA.dexterity + statsB.dexterity, 0, max);
+            int constitution = Math.Clamp(statsA.constitution + statsB.constitution, 0, max);
+            int intelligence = Math.Clamp(statsA.intelligence + statsB.intelligence, 0, max);
+            int wisdom = Math.Clamp(statsA.wisdom + statsB.wisdom, 0, max);
+            int charisma = Math.Clamp(statsA.charisma + statsB.charisma, 0, max);
             AbilityScores newStats = new(strength, dexterity, constitution, intelligence, wisdom, charisma);
             return newStats;
+        }
+
+        public override string ToString()
+        {
+            return
+$@"Strength: {strength}
+Dexterity:{dexterity}
+Constitution: {constitution}
+Intelligence: {intelligence}
+Wisdom: {wisdom}
+Charisma: {charisma}";
         }
     }
 }
