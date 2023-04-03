@@ -65,6 +65,14 @@
             </StackPanel>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <StackPanel>
+                    <TextBlock Text="Armour Class" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <ContentControl Height="5"/>
+                    <TextBox x:Name="acTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="55" PreviewTextInput="CheckIntInput" TextChanged="AC_TextChanged" FontWeight="Bold" FontSize="36" BorderBrush="Black" BorderThickness="2,2,2,2" TextAlignment="Center" Width="55" />
+                    <ContentControl Height="10"/>
+                    <CheckBox x:Name="autoACCheckBox" Content="Automate" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="AutoACCheckBox_Checked" Unchecked="AutoACCheckBox_Unchecked" KeyDown="Enter_KeyDown" FontWeight="Bold"/>
+                </StackPanel>
+                <ContentControl Width="50"/>
+                <StackPanel>
                     <TextBlock Text="Level" TextWrapping="Wrap" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
                     <ContentControl Height="5"/>
                     <TextBox x:Name="Level" PreviewTextInput="CheckIntInput" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" Height="55" FontSize="36" TextChanged="Level_TextChanged" BorderBrush="Black" BorderThickness="2,2,2,2" FontWeight="Bold"/>

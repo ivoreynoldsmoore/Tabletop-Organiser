@@ -65,6 +65,7 @@ namespace Tabletop_Organiser
             BindScore(intDisplay, "scores.intelligence");
             BindScore(wisDisplay, "scores.wisdom");
             BindScore(chaDisplay, "scores.charisma");
+            UpdateAC();
         }
 
         private void BindScore(TextBox Display, string PropertyPath)
@@ -196,6 +197,24 @@ namespace Tabletop_Organiser
             }
         }
 
+        private void AC_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = ((TextBox)sender).Text;
+            if (text != "")
+            {
+                character.ac = int.Parse(text);
+            }
+        }
+
+        private void UpdateAC()
+        {
+            if (autoACCheckBox.IsChecked.HasValue && (bool)autoACCheckBox.IsChecked)
+            {
+                character.calcAC();
+                acTextBox.Text = character.ac.ToString();
+            }
+        }
+
         private void UpdateFeaturesList()
         {
             FeaturePanel.Children.Clear();
@@ -212,6 +231,21 @@ namespace Tabletop_Organiser
                 FeaturePanel.Children.Add(expand);
             }
         }
+
+        private void AutoACCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            character.calcAC();
+            acTextBox.Text = character.ac.ToString();
+            acTextBox.IsEnabled = false;
+            Console.WriteLine(character.ac);
+            Console.WriteLine(character.dexterityModifier);
+        }
+
+        private void AutoACCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            acTextBox.IsEnabled = true;
+        }
+
         private void Enter_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)

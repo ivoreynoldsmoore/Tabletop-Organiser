@@ -107,19 +107,9 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public bool inspiration { get; set; }
 
-        public bool autoAC { get; set; }
+        public int ac { get; set; }
 
-        private int customAC;
-        public int AC
-        {
-            get { return autoAC ? calcAC() : customAC; }
-            set {
-                autoAC = false;
-                customAC = value;
-            }
-        }
 
-        public void resetAC()
         {
             autoAC = true;
         }
@@ -129,59 +119,60 @@ namespace Tabletop_Organiser.CharacterBuilder
             return proficiencies.Where(skill => skill == targetSkill).Any();
         }
 
-
-        private int calcAC()
+        public void calcAC()
         {
-            int AC = 10;
+            Console.WriteLine(armourType.ToString());
+            Console.WriteLine(dexterityModifier.ToString());
             switch (armourType)
             {
                 case ArmourType.none:
-                    AC = 10 + dexterityModifier;
+                    ac = 10 + dexterityModifier;
                     break;
                 case ArmourType.padded:
-                    AC = 11 + dexterityModifier;
+                    ac = 11 + dexterityModifier;
                     break;
                 case ArmourType.leather:
-                    AC = 11 + dexterityModifier;
+                    ac = 11 + dexterityModifier;
                     break;
                 case ArmourType.studdedLeather:
-                    AC = 12 + dexterityModifier;
+                    ac = 12 + dexterityModifier;
                     break;
                 case ArmourType.hide:
-                    AC = 12 + Math.Min(2, dexterityModifier);
+                    ac = 12 + Math.Min(2, dexterityModifier);
                     break;
                 case ArmourType.chainShirt:
-                    AC = 13 + Math.Min(2, dexterityModifier);
+                    ac = 13 + Math.Min(2, dexterityModifier);
                     break;
                 case ArmourType.scale:
-                    AC = 14 + Math.Min(2, dexterityModifier);
+                    ac = 14 + Math.Min(2, dexterityModifier);
                     break;
                 case ArmourType.breast:
-                    AC = 14 + Math.Min(2, dexterityModifier);
+                    ac = 14 + Math.Min(2, dexterityModifier);
                     break;
                 case ArmourType.halfPlate:
-                    AC = 15 + Math.Min(2, dexterityModifier);
+                    ac = 15 + Math.Min(2, dexterityModifier);
                     break;
                 case ArmourType.ring:
-                    AC = 14;
+                    ac = 14;
                     break;
                 case ArmourType.chainMail:
-                    AC = 16;
+                    ac = 16;
                     break;
                 case ArmourType.splint:
-                    AC = 17;
+                    ac = 17;
                     break;
                 case ArmourType.fullPlate:
-                    AC = 18;
+                    ac = 18;
                     break;
                 case ArmourType.monkDefense:
-                    AC = 10 + dexterityModifier + wisdomModifier;
+                    ac = 10 + dexterityModifier + wisdomModifier;
                     break;
                 case ArmourType.barbDefense:
-                    AC = 10 + dexterityModifier + constitutionModifier;
+                    ac = 10 + dexterityModifier + constitutionModifier;
+                    break;
+                default:
                     break;
             }
-            return AC;
         }
 
         public Character()
@@ -198,21 +189,22 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public enum ArmourType
         {
-            none = 0,
-            padded = 1,
-            leather = 2,
-            studdedLeather = 3,
-            hide = 4,
-            chainShirt = 5,
-            scale = 6,
-            breast = 7,
-            halfPlate = 8,
-            ring = 9,
-            chainMail = 10,
-            splint = 11,
-            fullPlate = 12,
-            monkDefense = 13,
-            barbDefense = 14
+            custom,
+            none,
+            padded,
+            leather,
+            studdedLeather,
+            hide,
+            chainShirt,
+            scale,
+            breast,
+            halfPlate,
+            ring,
+            chainMail,
+            splint,
+            fullPlate,
+            monkDefense,
+            barbDefense
         }
     }
 }
