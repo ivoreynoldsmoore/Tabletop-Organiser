@@ -1,0 +1,168 @@
+[
+  {
+    "index": 1,
+    "name": "Drow",
+    "parent": 1,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 1
+    },
+    "features": [
+      {
+        "name": "sup_Darkvision",
+        "displayName": "Superior Darkvision",
+        "description": "Your darkvision has a range of 120 feet, instead of 60.",
+        "levelReq": 0
+      },
+      {
+        "name": "sun_Sens",
+        "displayName": "Sunlight Sensitivity",
+        "description": "You have disadvantage on attack rolls and Wisdom (Perception) checks that rely on sight when you, the target of the attack, or whatever you are trying to perceive is in direct sunlight.",
+        "levelReq": 0
+      },
+      {
+        "name": "drow_Magic",
+        "displayName": "Drow Magic",
+        "description": "You know the Dancing Lights cantrip. When you reach 3rd level, you can cast the Faerie Fire spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the Darkness spell onceand regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells.",
+        "levelReq": 0
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "name": "High",
+    "parent": 1,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 1,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 3,
+    "name": "Wood",
+    "parent": 1,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 1,
+      "charisma": 0
+    },
+    "features": [
+      {
+        "name": "wild_Mask",
+        "displayName": "Mask of the Wild.",
+        "description": "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.",
+        "levelReq": 0
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "name": "Hill",
+    "parent": 3,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 1,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 5,
+    "name": "Mountain",
+    "parent": 3,
+    "score": {
+      "strength": 2,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 6,
+    "name": "Lightfoot",
+    "parent": 6,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 1
+    },
+    "features": []
+  },
+  {
+    "index": 7,
+    "name": "Stout",
+    "parent": 6,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 1,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 8,
+    "name": "Forest",
+    "parent": 7,
+    "score": {
+      "strength": 0,
+      "dexterity": 1,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 9,
+    "name": "Rock",
+    "parent": 7,
+    "score": {
+      "strength": 0,
+      "dexterity": 0,
+      "constitution": 1,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  },
+  {
+    "index": 10,
+    "name": "Dark",
+    "parent": 7,
+    "score": {
+      "strength": 0,
+      "dexterity": 1,
+      "constitution": 0,
+      "intelligence": 0,
+      "wisdom": 0,
+      "charisma": 0
+    },
+    "features": []
+  }
+]

@@ -4,143 +4,155 @@
     "index": 0,
     "hitDice": 8,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Barbarian",
     "index": 1,
     "hitDice": 12,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Bard",
     "index": 2,
     "hitDice": 10,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Druid",
     "index": 3,
     "hitDice": 8,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Fighter",
     "index": 4,
     "hitDice": 10,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Monk",
     "index": 5,
     "hitDice": 10,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Paladin",
     "index": 6,
     "hitDice": 10,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Ranger",
     "index": 7,
     "hitDice": 10,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Rogue",
     "index": 8,
     "hitDice": 8,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Sorcerer",
     "index": 9,
     "hitDice": 6,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Warlock",
     "index": 10,
     "hitDice": 8,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   },
   {
     "name": "Wizard",
     "index": 11,
     "hitDice": 6,
     "saveProficiencies": [],
+    "skillProficiencies": [],
     "armourProficiencies": [],
     "weaponProficiencies": [],
-    "toolProficieincies": [],
+    "toolProficiencies": [],
     "features": [],
-    "subclassLevelReq": 3,
-    "subclasses": []
+    "subroleLevelReq": 3,
+    "subroles": []
   }
 ]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Utils;
 
@@ -54,14 +55,19 @@ namespace Tabletop_Organiser.CharacterBuilder
         {
 
             public RaceIndex index { get; private set;  }
-            public string name { get; private set; }
+            public string name { get; private set; } = "";
             public AbilityScores score { get; private set; }
             public Feature[] features { get; private set; }
+            public int speed { get; private set; }
+
+            [JsonConstructor]
+            public Race(RaceIndex index, string name, AbilityScores score, Feature[] features, int speed)
             {
                 this.index = index;
                 this.name = name;
                 this.score = score;
                 this.features = features;
+                this.speed = speed;
             }
         }
 
@@ -90,8 +96,6 @@ namespace Tabletop_Organiser.CharacterBuilder
                 this.features = features;
             }
         }
-
-        static public Race[] races;
 
         static Races()
         {

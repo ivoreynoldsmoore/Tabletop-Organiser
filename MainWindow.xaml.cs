@@ -210,7 +210,7 @@ namespace Tabletop_Organiser
             character.OnRoleChanged();
         }
 
-        private void PreviewLevelInput(object sender, TextCompositionEventArgs e)
+        private void CheckIntInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !isInteger.IsMatch(e.Text);
         }

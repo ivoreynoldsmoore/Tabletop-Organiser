@@ -7,6 +7,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Xml.Linq;
@@ -118,6 +119,8 @@ namespace Tabletop_Organiser.CharacterBuilder
         public ArmourType armourType { get; set; }
 
         public int hitpoints { get; private set; }
+
+        public int HitDie { get; set; }
 
         public bool inspiration { get; set; }
 
