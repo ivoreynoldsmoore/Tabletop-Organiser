@@ -36,11 +36,12 @@ namespace Tabletop_Organiser
             };
             InitializeComponent();
             FileHandler.Initialise();
-            character = new();
             InitialiseControls();
+            FileHandler.loadedRoles += InitialiseRoles;
+            FileHandler.loadedRaces += InitialiseRaces;
         }
 
-        private void InitialiseControls()
+        private void InitialiseRaces(object? _, EventArgs e)
         {
             raceComboBox.ItemsSource = Races.races;
             raceComboBox.DisplayMemberPath = "name";
@@ -48,6 +49,7 @@ namespace Tabletop_Organiser
             raceComboBox.SelectedIndex = 0;
 
             subraceComboBox.DisplayMemberPath = "name";
+            subraceComboBox.SelectedValue = "index";
             subraceComboBox.SelectedIndex = -1;
 
             classComboBox.ItemsSource = Roles.roles;
