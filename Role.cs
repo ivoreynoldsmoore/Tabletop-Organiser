@@ -14,14 +14,14 @@ namespace Tabletop_Organiser.CharacterBuilder
     {
         public struct CharacterRole
         {
-            public RoleIndex classIndex;
+            public RoleIndex roleIndex;
 
-            public int subclassIndex;
+            public int subroleIndex;
 
             public CharacterRole(RoleIndex classIndex, int subclassIndex)
             {
-                this.classIndex = classIndex;
-                this.subclassIndex = subclassIndex;
+                this.roleIndex = classIndex;
+                this.subroleIndex = subclassIndex;
             }
         }
 
@@ -65,9 +65,11 @@ namespace Tabletop_Organiser.CharacterBuilder
             public bool[] toolProficieincies { get; private set; }
             public Feature[] features { get; private set; }
 
-            public int subclassLevelReq { get; private set; }
-            public Subrole[] subclasses { get; private set; }
-            public Role(string name, RoleIndex index, int hitDice, Feature[] features, bool[] saveProficiencies, bool[] armourProficiencies, bool[] weaponProficiencies, bool[] toolProficieincies, Subrole[] subclasses, int subclassLevelReq = 3)
+            public int subroleLevelReq { get; private set; }
+            public Subrole[] subroles { get; private set; }
+
+            [JsonConstructor]
+            public Role(string name, RoleIndex index, int hitDice, Feature[] features, HashSet<Abilities> saveProficiencies, HashSet<ArmourCatagory> armourProficiencies, HashSet<Weapons> weaponProficiencies, HashSet<Tools> toolProficiencies, Subrole[] subroles, int subroleLevelReq = 3)
             {
                 this.name = name;
                 this.index = index;
@@ -76,9 +78,9 @@ namespace Tabletop_Organiser.CharacterBuilder
                 this.saveProficiencies = saveProficiencies;
                 this.armourProficiencies = armourProficiencies;
                 this.weaponProficiencies = weaponProficiencies;
-                this.toolProficieincies = toolProficieincies;
-                this.subclassLevelReq= subclassLevelReq;
-                this.subclasses = subclasses;
+                this.toolProficiencies = toolProficiencies;
+                this.subroleLevelReq= subroleLevelReq;
+                this.subroles = subroles;
             }
         }
 
@@ -104,23 +106,39 @@ namespace Tabletop_Organiser.CharacterBuilder
 
         public static Role.Subrole[] GetSubclasses(RoleIndex index)
         {
-            return roles.Single(charClass => charClass.index == index).subclasses;
+            return roles.Single(charRole => charRole.index == index).subroles;
         }
 
-        public static Feature[] GetFeatures(CharacterRole charClassIndices)
+        public static Role GetRole(RoleIndex index)
         {
-            Role charClass = roles.Single(charClass => charClass.index == charClassIndices.classIndex);
-            Feature[] features = charClass.features;
-            if (charClassIndices.subclassIndex >= 0)
+            return roles.Single(charRole => charRole.index == index);
+        }
+
+        public static Role.Subrole? GetSubrole(CharacterRole role)
+        {
+            Role charRole = roles.Single(charRole => charRole.index == role.roleIndex);
+            Role.Subrole? subrole = null;
+            if (role.subroleIndex >= 0)
             {
-                features = features.Concat(charClass.subclasses[charClassIndices.subclassIndex].features).ToArray();
+                subrole = charRole.subroles[role.subroleIndex];
+            }
+            return subrole;
+        }
+
+        public static Feature[] GetFeatures(CharacterRole charRoleIndices)
+        {
+            Role charRole = roles.Single(charRole => charRole.index == charRoleIndices.roleIndex);
+            Feature[] features = charRole.features;
+            if (charRoleIndices.subroleIndex >= 0)
+            {
+                features = features.Concat(charRole.subroles[charRoleIndices.subroleIndex].features).ToArray();
             }
             return features;
         }
 
         public static int GetSubclassLevelReq(RoleIndex index)
         {
-            return roles.Single(charClass => charClass.index == index).subclassLevelReq;
+            return roles.Single(charRole => charRole.index == index).subroleLevelReq;
         }
     }
 }

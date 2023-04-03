@@ -51,6 +51,18 @@ namespace Tabletop_Organiser
             subraceComboBox.DisplayMemberPath = "name";
             subraceComboBox.SelectedValue = "index";
             subraceComboBox.SelectedIndex = -1;
+        }
+
+        private void InitialiseRoles(object? _, EventArgs e)
+        {
+            roleComboBox.ItemsSource = Roles.roles;
+            roleComboBox.DisplayMemberPath = "name";
+            roleComboBox.SelectedValuePath = "index";
+            roleComboBox.SelectedIndex = 0;
+
+            subroleComboBox.DisplayMemberPath = "name";
+            subroleComboBox.SelectedIndex = -1;
+        }
 
             classComboBox.ItemsSource = Roles.roles;
             classComboBox.DisplayMemberPath = "name";
